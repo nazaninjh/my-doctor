@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Vazirmatn } from "next/font/google";
-import "./globals.css";
 import { NextFont } from "next/dist/compiled/@next/font";
+import { Vazirmatn } from "next/font/google";
+
+import "./globals.css";
+import Header from "@/components/header/header.component";
 
 const vazirmatn: NextFont = Vazirmatn({
   subsets: ["latin", "arabic"],
@@ -19,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl" className={vazirmatn.className}>
-      <body>{children}</body>
+      <body>
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
