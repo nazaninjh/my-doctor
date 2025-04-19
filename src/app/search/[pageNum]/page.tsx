@@ -1,14 +1,21 @@
 import { Doctor } from "@/types/doctor";
-import CardComponent from "./search-components/card.component";
+
 import clsx from "clsx";
 
 import data from "@/data/doctors_iran_100.json";
-import styles from "./page.module.css";
-import PaginationComponent from "./search-components/pagination-conponents/pagination.component";
-export default async function Page() {
+import CardComponent from "../search-components/card.component";
+import styles from "./../page.module.css";
+import PaginationComponent from "../search-components/pagination-conponents/pagination.component";
+export default async function Page({
+  params,
+}: {
+  params: { pageNum: number };
+}) {
+  const { pageNum } = params;
+  const startingPoint = (Number(pageNum) - 1) * 10;
   let content;
   if (data) {
-    const firstResults = data.slice(0, 10);
+    const firstResults = data.slice(startingPoint, startingPoint + 10);
     content = firstResults.map((doctor: Doctor) => {
       return (
         <CardComponent
@@ -27,7 +34,7 @@ export default async function Page() {
       <PaginationComponent
         length={data.length}
         cardsPerPage={10}
-        currentPage={1}
+        currentPage={Number(pageNum)}
       />
     </div>
   );

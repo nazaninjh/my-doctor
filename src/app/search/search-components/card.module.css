@@ -1,0 +1,65 @@
+.wrapper {
+  display: grid;
+  row-gap: 0.3rem;
+  background-color: transparent;
+  border: 0.1rem solid var(--color-primary);
+  border-radius: 0.5rem;
+
+  padding: 1rem;
+  .header {
+    display: grid;
+    column-gap: 0.5rem;
+    grid-template-areas: "image texts" "image texts" "image rating";
+    width: fit-content;
+    > img {
+      grid-area: image;
+      border: solid 0.2rem var(--color-primary-lighter);
+      border-radius: 999px;
+    }
+    .texts {
+      grid-area: texts;
+
+      > p {
+        color: var(--color-gray-90);
+        font-weight: 400;
+      }
+
+      > p:first-child {
+        color: white;
+        font-weight: 600;
+      }
+    }
+    .rating {
+      grid-area: rating;
+      display: flex;
+      gap: 0.3rem;
+      color: rgb(255, 183, 0);
+      > p {
+        color: var(--color-primary);
+      }
+    }
+  }
+  .address {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  .btns {
+    display: flex;
+    gap: 0.5rem;
+    > button {
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+      background-color: var(--color-primary);
+      border: solid 1px var(--color-primary-opposite);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: 300ms ease-in-out;
+      transition-property: border, background-color;
+      &:hover {
+        background-color: var(--color-primary-opposite);
+        border: 1px solid var(--color-primary);
+      }
+    }
+  }
+}

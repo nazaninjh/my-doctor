@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
+
+  .pageLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: inherit;
+
+    color: white;
+    text-decoration: none;
+    width: 2rem;
+    height: 2.5rem;
+
+    border-radius: 0.375rem;
+    font-size: var(--fz-300);
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    line-height: 1;
+
+    &:hover {
+      background-color: var(--color-primary-dark);
+    }
+
+    &.active {
+      background-color: var(--color-primary);
+    }
+  }
+}
