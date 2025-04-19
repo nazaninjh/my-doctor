@@ -3,8 +3,9 @@ import CardComponent from "./search-components/card.component";
 import clsx from "clsx";
 
 import data from "@/data/doctors_iran_100.json";
-import styles from "./page.module.css";
 import PaginationComponent from "./search-components/pagination-conponents/pagination.component";
+import styles from "./page.module.css";
+import FiltersProvider from "./search-components/filterProvider";
 export default async function Page() {
   let content;
   if (data) {
@@ -23,7 +24,7 @@ export default async function Page() {
 
   return (
     <div className={styles.wrapper}>
-      {content}
+      <FiltersProvider>{content}</FiltersProvider>
       <PaginationComponent
         length={data.length}
         cardsPerPage={10}
