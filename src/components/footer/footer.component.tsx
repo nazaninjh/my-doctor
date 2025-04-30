@@ -7,10 +7,10 @@ import idkLogo from "@/assets/logo/idk.svg";
 import certificateLogo from "@/assets/logo/certificate.svg";
 import enamadLogo from "@/assets/logo/enamad.svg";
 
-import styles from "./footer.module.css";
 import MingcuteTelegramFill from "@/icons/MingcuteTelegramFill";
 import MingcuteLinkedinFill from "@/icons/MingcuteLinkedinFill";
 import MingcuteYoutubeFill from "@/icons/MingcuteYoutubeFill";
+import styles from "./footer.module.css";
 
 export default function Footer(): ReactElement {
   const certificateItems = [
