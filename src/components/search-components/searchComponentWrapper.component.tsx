@@ -1,12 +1,16 @@
 "use client";
 
-import { useDoctors } from "@/providers/doctors.provider";
 import { Doctor } from "@/types/doctor";
 import CardComponent from "./card.component";
+
+import styles from "./card.module.css";
 import clsx from "clsx";
 
-export default function SearchComponentWrapper() {
-  const { doctorsList } = useDoctors();
+export default function SearchComponentWrapper({
+  doctorsList,
+}: {
+  doctorsList: Doctor[] | null;
+}) {
   let content;
   if (doctorsList) {
     content = doctorsList.map((doctor: Doctor) => {
@@ -18,8 +22,8 @@ export default function SearchComponentWrapper() {
       );
     });
   } else {
-    content = <p>Loading data...</p>;
+    content = <p>متاسفانه پزشکی با این مشخصات پیدا نشد...</p>;
   }
 
-  return content;
+  return <div className={styles["doctors-wrapper"]}>{content}</div>;
 }

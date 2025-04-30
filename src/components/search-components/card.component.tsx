@@ -3,8 +3,8 @@ import { Doctor } from "@/types/doctor";
 
 import { ReactNode } from "react";
 import MingcuteStarFill from "./MingcuteStarFill";
-import styles from "./card.module.css";
 import MingcuteMapPinFill from "./MingcuteMapPinFill";
+import styles from "./card.module.css";
 
 export default function CardComponent({
   doctor,
@@ -12,7 +12,7 @@ export default function CardComponent({
   doctor: Doctor;
 }): ReactNode {
   return (
-    <div className={styles.wrapper}>
+    <div>
       <div className={styles.header}>
         <Image src={doctor.image} alt="" width={70} height={70} />
         <div className={styles.texts}>

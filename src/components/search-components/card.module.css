@@ -1,4 +1,4 @@
-.wrapper {
+.doctors-wrapper {
   display: grid;
   row-gap: 0.3rem;
   background-color: transparent;
@@ -6,6 +6,9 @@
   border-radius: 0.5rem;
 
   padding: 1rem;
+
+  max-width: 100%;
+
   .header {
     display: grid;
     column-gap: 0.5rem;
