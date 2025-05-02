@@ -1,13 +1,11 @@
 .doctors-wrapper {
   display: grid;
-  row-gap: 0.3rem;
-  background-color: transparent;
-  border: 0.1rem solid var(--color-primary);
-  border-radius: 0.5rem;
+  row-gap: 1.5rem;
+  background-color: white;
+
+  border-radius: 0.75rem;
 
   padding: 1rem;
-
-  max-width: 100%;
 
   .header {
     display: grid;
@@ -50,9 +48,11 @@
   .btns {
     display: flex;
     gap: 0.5rem;
+
     > button {
       width: 100%;
       padding: 0.4rem 0.5rem;
+      color: white;
       background-color: var(--color-primary);
       border: solid 1px var(--color-primary-opposite);
       border-radius: 0.5rem;

@@ -11,7 +11,23 @@
 @media (min-width: 640px) {
   .wrapper {
     .container {
+      display: grid;
+      grid-template-areas:
+        "sidebar search"
+        "sidebar cards"
+        "sidebar .";
+      grid-template-rows: auto 1fr auto;
       grid-template-columns: minmax(100px, auto) 1fr;
+      row-gap: 0.3rem;
+      .filters-wrapper {
+        grid-area: sidebar;
+      }
+      .search {
+        grid-area: search;
+      }
+      .cards {
+        grid-area: cards;
+      }
     }
   }
 }

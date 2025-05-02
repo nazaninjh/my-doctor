@@ -6,4 +6,5 @@ export type IFilter = {
   pageNum?: number;
   gender?: string;
   location?: "ALL" | LOCATION_CODES;
+  query?: string;
 };

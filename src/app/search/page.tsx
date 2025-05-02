@@ -6,16 +6,16 @@ import { Doctor } from "@/types/doctor";
 
 import { IFilter, LOCATION_CODES } from "@/types/filter.type";
 import FilterSidebarComponent from "@/components/filter-components/filterSidebar.component";
-import FiltersProvider from "@/providers/filters.provider";
 import styles from "./page.module.css";
+import GlobalSearchBoxComponent from "@/components/global-search-box/global-search-box.component";
 
 const DOCTORS_PER_PAGE = 10;
 
 const filterDoctors = (
   data: Doctor[],
-  filter: { gender: string; location: "ALL" | LOCATION_CODES },
+  filter: { gender: string; location: "ALL" | LOCATION_CODES; query: string },
 ) => {
-  const { gender = "both", location = "ALL" } = filter;
+  const { gender = "both", location = "ALL", query } = filter;
 
   return data.filter((doctor) => {
     const genderMatch = gender === "both" || doctor.sex === gender;
@@ -23,7 +23,10 @@ const filterDoctors = (
       location === "ALL" ||
       (doctor.locationCode as LOCATION_CODES) === location;
 
-    return genderMatch && locationMatch;
+    const queryMatch =
+      doctor.name.includes(query) || doctor.address.includes(query) || "";
+
+    return genderMatch && locationMatch && queryMatch;
   });
 };
 
@@ -35,10 +38,12 @@ export default async function Page({
   const pageNum = Number(searchParams.pageNum) || 1;
   const gender = searchParams.gender || "both";
   const location = searchParams.location || "ALL";
+  const query = searchParams.query || "";
 
   const filteredDoctors = filterDoctors(data, {
     gender: gender,
     location: location,
+    query: query,
   });
 
   const startingPoint = (pageNum - 1) * DOCTORS_PER_PAGE;
@@ -51,19 +56,25 @@ export default async function Page({
 
   return (
     <div className={styles.wrapper}>
-      <FiltersProvider>
-        <div className={styles.container}>
+      <div className={styles.container}>
+        <div className={styles["filters-wrapper"]}>
           <FilterSidebarComponent />
-          <SearchComponentWrapper doctorsList={finalResult} />
         </div>
 
-        <PaginationComponent
-          length={filteredDoctors.length}
-          cardsPerPage={DOCTORS_PER_PAGE}
-          currentPage={pageNum}
-          searchParams={searchParams}
-        />
-      </FiltersProvider>
+        <div className={styles.search}>
+          <GlobalSearchBoxComponent />
+        </div>
+        <div className={styles.cards}>
+          <SearchComponentWrapper doctorsList={finalResult} />
+        </div>
+      </div>
+
+      <PaginationComponent
+        length={filteredDoctors.length}
+        cardsPerPage={DOCTORS_PER_PAGE}
+        currentPage={pageNum}
+        searchParams={searchParams}
+      />
     </div>
   );
 }
