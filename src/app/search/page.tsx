@@ -4,19 +4,12 @@ import PaginationComponent from "../../components/search-components/pagination-c
 import SearchComponentWrapper from "../../components/search-components/searchComponentWrapper.component";
 import { Doctor } from "@/types/doctor";
 
+import { IFilter, LOCATION_CODES } from "@/types/filter.type";
+import FilterSidebarComponent from "@/components/filter-components/filterSidebar.component";
+import FiltersProvider from "@/providers/filters.provider";
 import styles from "./page.module.css";
 
 const DOCTORS_PER_PAGE = 10;
-
-export type IFilter = {
-  pageNum?: number;
-  gender?: string;
-  location?: "ALL" | LOCATION_CODES;
-};
-
-type LOCATION_CODES = [
-  "TH" | "ES" | "AH" | "TB" | "SH" | "RS" | "UR" | "MS" | "YZ" | "KR",
-];
 
 const filterDoctors = (
   data: Doctor[],
@@ -58,16 +51,19 @@ export default async function Page({
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <SearchComponentWrapper doctorsList={finalResult} />
-      </div>
+      <FiltersProvider>
+        <div className={styles.container}>
+          <FilterSidebarComponent />
+          <SearchComponentWrapper doctorsList={finalResult} />
+        </div>
 
-      <PaginationComponent
-        length={filteredDoctors.length}
-        cardsPerPage={DOCTORS_PER_PAGE}
-        currentPage={pageNum}
-        searchParams={searchParams}
-      />
+        <PaginationComponent
+          length={filteredDoctors.length}
+          cardsPerPage={DOCTORS_PER_PAGE}
+          currentPage={pageNum}
+          searchParams={searchParams}
+        />
+      </FiltersProvider>
     </div>
   );
 }

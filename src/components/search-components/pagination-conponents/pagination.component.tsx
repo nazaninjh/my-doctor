@@ -1,14 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // pagination.component.tsx
 import Link from "next/link";
-import styles from "./pagination.module.css";
 import clsx from "clsx";
-
-function buildSearchString(searchParams: Record<string, any>, newPage: number) {
-  const params = new URLSearchParams(searchParams as any);
-  params.set("pageNum", String(newPage));
-  return `?${params.toString()}`;
-}
+import { buildSearchString } from "@/functions/buildSearchString";
+import styles from "./pagination.module.css";
 
 export default function PaginationComponent({
   length,
@@ -32,7 +27,7 @@ export default function PaginationComponent({
     <div className={styles.wrapper}>
       {currentPage > 1 && (
         <Link
-          href={buildSearchString(searchParams, currentPage - 1)}
+          href={buildSearchString(searchParams, "pageNum", currentPage - 1)}
           className={styles.pageLink}
         >
           &lt;
@@ -42,7 +37,7 @@ export default function PaginationComponent({
       {pageNumbers.map((page) => (
         <Link
           key={page}
-          href={buildSearchString(searchParams, page)}
+          href={buildSearchString(searchParams, "pageNum", page)}
           className={clsx(styles.pageLink, {
             [styles.active]: page === currentPage,
           })}
@@ -53,7 +48,7 @@ export default function PaginationComponent({
 
       {currentPage < totalPages && (
         <Link
-          href={buildSearchString(searchParams, currentPage + 1)}
+          href={buildSearchString(searchParams, "pageNum", currentPage + 1)}
           className={styles.pageLink}
         >
           &gt;

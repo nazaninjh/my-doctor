@@ -1,0 +1,11 @@
+.wrapper {
+  display: grid;
+  row-gap: 0.3rem;
+  .inputs {
+    display: flex;
+    gap: 0.5rem;
+    > input {
+      cursor: pointer;
+    }
+  }
+}

@@ -23,12 +23,12 @@
       grid-area: texts;
 
       > p {
-        color: var(--color-gray-90);
+        color: var(--color-text-700);
         font-weight: 400;
       }
 
       > p:first-child {
-        color: white;
+        color: var(--color-text-700);
         font-weight: 600;
       }
     }

@@ -1,0 +1,9 @@
+export type LOCATION_CODES = [
+  "TH" | "ES" | "AH" | "TB" | "SH" | "RS" | "UR" | "MS" | "YZ" | "KR",
+];
+
+export type IFilter = {
+  pageNum?: number;
+  gender?: string;
+  location?: "ALL" | LOCATION_CODES;
+};
