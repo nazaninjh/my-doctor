@@ -1,6 +1,6 @@
 "use client";
-import { buildSearchString } from "@/functions/buildSearchString";
-import { useRouter, useSearchParams } from "next/navigation";
+
+import { useRouter } from "next/navigation";
 import {
   createContext,
   PropsWithChildren,
@@ -15,36 +15,64 @@ export type IFilterContext = {
   gender: IGenderType;
 };
 
-const DEFAULT_VALUES: IFilterContext = {
+export const DEFAULT_VALUES: IFilterContext = {
   gender: "both",
 };
 
 type FilterContextType = {
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
   filter: IFilterContext;
   setFilter: React.Dispatch<React.SetStateAction<IFilterContext>>;
-  updateFilter: (key: keyof IFilterContext, value: IGenderType) => void;
+  updateFilter: <K extends keyof IFilterContext>(
+    key: K,
+    value: IFilterContext[K],
+  ) => void;
   resetFilter: (key: keyof IFilterContext) => void;
 };
 
 const filterContext = createContext<FilterContextType | undefined>(undefined);
 
 export default function FiltersProvider({ children }: PropsWithChildren) {
-  const searhParam = useSearchParams();
   const router = useRouter();
 
   const [filter, setFilter] = useState<IFilterContext>({
     gender: DEFAULT_VALUES.gender,
   });
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
-    if (filter.gender === "female") {
-      router.push(buildSearchString(searhParam, "gender", "female"));
-    } else if (filter.gender === "male") {
-      router.push(buildSearchString(searhParam, "gender", "male"));
-    }
-  }, [filter.gender, router, searhParam]);
+    const params = new URLSearchParams(window.location.search);
+    let shouldUpdate = false;
 
-  const updateFilter = (key: keyof IFilterContext, value: IGenderType) => {
+    if (filter.gender === "female" || filter.gender === "male") {
+      if (params.get("gender") !== filter.gender) {
+        params.set("gender", filter.gender);
+        shouldUpdate = true;
+      }
+    } else if (params.has("gender")) {
+      params.delete("gender");
+      shouldUpdate = true;
+    }
+
+    if (query.length > 0) {
+      if (params.get("query") !== query) {
+        params.set("query", query);
+        shouldUpdate = true;
+      }
+    } else if (params.has("query")) {
+      params.delete("query");
+      shouldUpdate = true;
+    }
+
+    if (shouldUpdate) {
+      router.push(`?${params.toString()}`);
+    }
+  }, [filter.gender, query, router]);
+
+  const updateFilter = <K extends keyof IFilterContext>(
+    key: K,
+    value: IFilterContext[K],
+  ) => {
     setFilter({
       ...filter,
       [key]: value,
@@ -54,12 +82,13 @@ export default function FiltersProvider({ children }: PropsWithChildren) {
   const resetFilter = (key: keyof IFilterContext) => {
     setFilter({
       ...filter,
-      [key]: DEFAULT_VALUES.gender,
+      [key]: DEFAULT_VALUES[key as keyof typeof DEFAULT_VALUES],
     });
   };
+
   return (
     <filterContext.Provider
-      value={{ filter, setFilter, updateFilter, resetFilter }}
+      value={{ filter, setFilter, updateFilter, resetFilter, setQuery }}
     >
       {children}
     </filterContext.Provider>

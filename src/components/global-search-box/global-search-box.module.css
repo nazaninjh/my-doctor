@@ -3,7 +3,7 @@
   align-items: center;
   gap: 0.5rem;
 
-  inline-size: min(50rem, 100%);
+  inline-size: min(auto, 100%);
 
   padding-inline: 1rem;
 
