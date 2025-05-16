@@ -4,7 +4,8 @@ export type LOCATION_CODES = [
 
 export type IFilter = {
   pageNum?: number;
-  gender?: string;
+  gender?: "both" | "male" | "female";
   location?: "ALL" | LOCATION_CODES;
   query?: string;
+  serviceType?: "online" | "on-site";
 };

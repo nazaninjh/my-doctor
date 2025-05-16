@@ -3,6 +3,7 @@ import {
   IFilterContext,
   useFilter,
 } from "@/providers/filters.provider";
+import { IFilter } from "@/types/filter.type";
 import clsx from "clsx";
 import styles from "./selectedFilters.module.css";
 
@@ -35,7 +36,7 @@ export default function SelectedFiltersComponent({
 
           return (
             <div className={clsx(styles.filter)} key={`${key}-${value}`}>
-              <span>{getDisplayValue(key, value)}</span>
+              <span>{getDisplayValue(key as keyof IFilter, value)}</span>
               <button
                 type="button"
                 className={styles.removeButton}
@@ -52,9 +53,12 @@ export default function SelectedFiltersComponent({
 }
 
 // Helper function for display values
-function getDisplayValue(key: string, value: string) {
+function getDisplayValue(key: keyof IFilter, value: string) {
   if (key === "gender") {
     return value === "male" ? "مرد" : "زن";
+  }
+  if (key === "serviceType") {
+    return value === "online" ? "ویزیت آنلاین" : "ویزیت حضوری";
   }
   return value;
 }

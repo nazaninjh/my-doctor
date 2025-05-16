@@ -4,8 +4,8 @@ import { ChangeEvent, ReactElement } from "react";
 import MingcuteSearchLine from "@/icons/MingcuteSearchLine";
 import MingcuteLocationLine from "@/icons/MingcuteLocationLine";
 
-import styles from "./global-search-box.module.css";
 import { useFilter } from "@/providers/filters.provider";
+import styles from "./global-search-box.module.css";
 
 export default function GlobalSearchBoxComponent(): ReactElement {
   const { setQuery } = useFilter();

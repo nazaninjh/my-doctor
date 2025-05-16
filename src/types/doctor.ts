@@ -2,7 +2,7 @@ export type Doctor = {
   id: string;
   name: string;
   fullName: string;
-  sex: string;
+  gender: string;
   speciality: string;
   specialityCode: string;
   experience: number;
@@ -12,4 +12,6 @@ export type Doctor = {
   rating: number;
   available: boolean;
   image: string;
+  expertise: string;
+  serviceType: string;
 };

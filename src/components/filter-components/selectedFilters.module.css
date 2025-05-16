@@ -4,27 +4,31 @@
   border-radius: 0.5rem;
   background-color: white;
   padding: 0.5rem;
-  .filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.3rem;
-    width: 100%;
-    height: fit-content;
-    color: var(--color-primary-fade);
-    border-radius: 0.5rem;
-
-    background-color: var(--color-primary-friend);
-
-    > button {
-      background-color: transparent;
-      border: none;
-      outline: none;
+  .filtersContainer {
+    display: grid;
+    row-gap: 0.3rem;
+    .filter {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.3rem;
+      width: 100%;
+      height: fit-content;
       color: var(--color-primary-fade);
-      top: 0.1rem;
-      left: 0.3rem;
-      cursor: pointer;
+      border-radius: 0.5rem;
+
+      background-color: var(--color-primary-friend);
+
+      > button {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: var(--color-primary-fade);
+        top: 0.1rem;
+        left: 0.3rem;
+        cursor: pointer;
+      }
     }
   }
 }

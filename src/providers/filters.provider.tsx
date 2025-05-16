@@ -10,13 +10,16 @@ import {
 } from "react";
 
 type IGenderType = "both" | "male" | "female";
+type IServiceType = "online" | "on-site";
 
 export type IFilterContext = {
   gender: IGenderType;
+  serviceType: IServiceType;
 };
 
 export const DEFAULT_VALUES: IFilterContext = {
   gender: "both",
+  serviceType: "on-site",
 };
 
 type FilterContextType = {
@@ -35,8 +38,10 @@ const filterContext = createContext<FilterContextType | undefined>(undefined);
 export default function FiltersProvider({ children }: PropsWithChildren) {
   const router = useRouter();
 
+  // todo: use reducer in here
   const [filter, setFilter] = useState<IFilterContext>({
     gender: DEFAULT_VALUES.gender,
+    serviceType: DEFAULT_VALUES.serviceType,
   });
   const [query, setQuery] = useState("");
 
@@ -53,6 +58,15 @@ export default function FiltersProvider({ children }: PropsWithChildren) {
       params.delete("gender");
       shouldUpdate = true;
     }
+    if (filter.serviceType === "on-site" || filter.serviceType === "online") {
+      if (params.get("serviceType") !== filter.serviceType) {
+        params.set("serviceType", filter.serviceType);
+        shouldUpdate = true;
+      }
+    } else if (params.has("serviceType")) {
+      params.delete("serviceType");
+      shouldUpdate = true;
+    }
 
     if (query.length > 0) {
       if (params.get("query") !== query) {
@@ -67,7 +81,7 @@ export default function FiltersProvider({ children }: PropsWithChildren) {
     if (shouldUpdate) {
       router.push(`?${params.toString()}`);
     }
-  }, [filter.gender, query, router]);
+  }, [filter, query, router]);
 
   const updateFilter = <K extends keyof IFilterContext>(
     key: K,
